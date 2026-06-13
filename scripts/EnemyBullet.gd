@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var speed := 800.0
+@export var speed := 500.0
 
 func _ready():
 	add_to_group("enemy_bullets")

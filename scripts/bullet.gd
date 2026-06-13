@@ -15,6 +15,6 @@ func _process(delta):
 func _on_area_entered(area):
 	if area.is_in_group("enemies"):
 		if area.has_method("take_damage"):
-			area.take_damage(damage)
+			area.call_deferred("take_damage", damage)
 
 		queue_free()
