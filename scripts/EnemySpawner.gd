@@ -15,9 +15,19 @@ func spawn_loop():
 
 func spawn_gheel():
 	var enemy = gheel_scene.instantiate()
-	get_tree().current_scene.add_child(enemy)
 
 	enemy.global_position = Vector2(
 		2050,
 		randf_range(120, 960)
 	)
+
+	get_tree().current_scene.call_deferred("add_child", enemy)
+
+	enemy.global_position = Vector2(
+		2050,
+		randf_range(120, 960)
+	)
+
+
+func stop_spawning():
+	can_spawn = false

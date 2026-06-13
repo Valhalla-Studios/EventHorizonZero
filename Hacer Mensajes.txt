@@ -1,0 +1,78 @@
+Estructura en game.tscn:
+
+Game
+├── Player
+├── EnemySpawner
+├── DialogueLayer (CanvasLayer)
+│   └── MessageBox (Panel)
+│       ├── SpeakerLabel
+│       └── TextLabel
+
+MessageBox puede estar abajo de la pantalla.
+
+Script DialogueBox.gd en DialogueLayer:
+
+extends CanvasLayer
+
+@onready var box: Panel = $MessageBox
+@onready var speaker_label: Label = $MessageBox/SpeakerLabel
+@onready var text_label: Label = $MessageBox/TextLabel
+
+func _ready():
+	box.visible = false
+
+func show_message(speaker: String, text: String, duration := 4.0):
+	box.visible = true
+	speaker_label.text = speaker
+	text_label.text = text
+
+	await get_tree().create_timer(duration).timeout
+
+	box.visible = false
+
+Estructura:
+
+DialogueLayer (CanvasLayer)
+├── MessageImage (TextureRect)
+├── MessageText (Label)
+└── RadioSFX (AudioStreamPlayer)
+
+Script DialogueLayer.gd:
+
+extends CanvasLayer
+
+@onready var message_image: TextureRect = $MessageImage
+@onready var message_text: Label = $MessageText
+@onready var radio_sfx: AudioStreamPlayer = $RadioSFX
+
+func _ready():
+	message_image.modulate.a = 0.0
+	message_text.modulate.a = 0.0
+	radio_sfx.bus = "SFX"
+
+func show_radio_message(text: String):
+	radio_sfx.play()
+
+	message_text.text = text
+	message_image.modulate.a = 1.0
+	message_text.modulate.a = 1.0
+
+	await get_tree().create_timer(4.0).timeout
+
+	var tween := create_tween()
+	tween.set_parallel(true)
+
+	tween.tween_property(message_image, "modulate:a", 0.0, 1.0)
+	tween.tween_property(message_text, "modulate:a", 0.0, 1.0)
+
+	await tween.finished
+
+Para llamarlo desde Game.gd:
+
+@onready var dialogue_layer = $DialogueLayer
+
+func _ready():
+	await get_tree().create_timer(2.0).timeout
+	dialogue_layer.show_radio_message("Navegante: Capitana... estamos atrapados en el último instante.")
+
+La imagen ponla abajo con Layout, y el texto encima de ella.

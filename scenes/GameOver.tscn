@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cqgwqdxkfuoyj"]
+
+[ext_resource type="Script" uid="uid://ch0h7ndteosrq" path="res://scripts/GameOver.gd" id="1_qae0b"]
+[ext_resource type="Texture2D" uid="uid://crbvpsmf7ju7x" path="res://resources/images/backgrounds/GameOver.png" id="2_vuicl"]
+
+[node name="GameOver" type="Node2D" unique_id=250867949]
+
+[node name="Control" type="Control" parent="." unique_id=480388845]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_qae0b")
+
+[node name="GameOverImage" type="TextureRect" parent="Control" unique_id=726925493]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_vuicl")
+
+[node name="FadeRect" type="ColorRect" parent="Control" unique_id=146696912]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 1)

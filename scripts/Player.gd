@@ -2,6 +2,8 @@ extends Area2D
 
 var half_width := 110
 var half_height := 50
+var dead := false
+
 @export var speed := 650.0
 
 @export var bullet_scene: PackedScene
@@ -14,6 +16,9 @@ func _ready():
 	area_entered.connect(_on_area_entered)
 
 func _process(delta):
+	if dead:
+		return
+
 	var direction := Vector2.ZERO
 
 	direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -51,4 +56,9 @@ func _on_area_entered(area):
 			die()
 
 func die():
-	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
+	if dead:
+		return
+
+	dead = true
+
+	get_tree().current_scene.game_over()
