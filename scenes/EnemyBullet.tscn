@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dot3ek4dmhktn"]
+
+[ext_resource type="Script" uid="uid://bcfjp48rngxxy" path="res://scripts/EnemyBullet.gd" id="1_s6wdq"]
+[ext_resource type="Texture2D" uid="uid://cbaambvl3os3j" path="res://resources/images/sprites/EnemyLaser.png" id="2_la4vt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p1sfj"]
+radius = 6.0
+height = 74.0
+
+[node name="Bullet" type="Node2D" unique_id=509561587]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1906687664]
+script = ExtResource("1_s6wdq")
+speed = 1800.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=255346292]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_p1sfj")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=1010546700]
+texture = ExtResource("2_la4vt")

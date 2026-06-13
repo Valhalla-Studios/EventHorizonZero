@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://c8lg5vabm8qk"]
+
+[ext_resource type="Script" uid="uid://dqba1wdfa8i80" path="res://scripts/Player.gd" id="1_p0vlq"]
+[ext_resource type="PackedScene" uid="uid://cdrdbfyb8ifep" path="res://scenes/Bullet.tscn" id="2_3li8b"]
+[ext_resource type="Texture2D" uid="uid://etbdi7uaje0t" path="res://resources/images/sprites/Lancer564.png" id="2_v6fml"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5q5h1"]
+size = Vector2(170, 70)
+
+[node name="Player" type="Node2D" unique_id=1401340265]
+
+[node name="Player" type="Area2D" parent="." unique_id=1009919313]
+position = Vector2(250, 540)
+script = ExtResource("1_p0vlq")
+speed = 850.0
+bullet_scene = ExtResource("2_3li8b")
+fire_rate = 0.4
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=952553384]
+texture = ExtResource("2_v6fml")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=488044897]
+shape = SubResource("RectangleShape2D_5q5h1")

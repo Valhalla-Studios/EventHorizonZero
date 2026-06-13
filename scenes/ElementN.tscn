@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://v6vodyc5dpxa"]
+
+[ext_resource type="Texture2D" uid="uid://cc38g6lxyk0y7" path="res://resources/images/sprites/ElementN.png" id="1_1gm6k"]
+[ext_resource type="Script" uid="uid://mwk8ran7q26s" path="res://scripts/ElementN.gd" id="1_aomip"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y48t4"]
+size = Vector2(30, 30)
+
+[node name="ElementN" type="Node2D" unique_id=780448161]
+
+[node name="ElementN" type="Area2D" parent="." unique_id=2036036205]
+script = ExtResource("1_aomip")
+
+[node name="Sprite2D" type="Sprite2D" parent="ElementN" unique_id=1686939795]
+texture = ExtResource("1_1gm6k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ElementN" unique_id=1898396579]
+shape = SubResource("RectangleShape2D_y48t4")

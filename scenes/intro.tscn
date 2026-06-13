@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cbbb5ruk8cg0l"]
+
+[ext_resource type="Script" uid="uid://u4pb5akk3fr2" path="res://scripts/intro.gd" id="1_ioskq"]
+
+[node name="Intro" type="Node2D" unique_id=887735480]
+
+[node name="Intro" type="Control" parent="." unique_id=1633640147]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ioskq")
+
+[node name="TextureRect" type="TextureRect" parent="Intro" unique_id=2016196668]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FadeRect" type="ColorRect" parent="Intro" unique_id=2120192018]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1808.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

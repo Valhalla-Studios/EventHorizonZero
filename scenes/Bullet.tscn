@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cdrdbfyb8ifep"]
+
+[ext_resource type="Texture2D" uid="uid://b5jaes5wf4iv6" path="res://resources/images/sprites/LancerLaser.png" id="1_hf8mt"]
+[ext_resource type="Script" uid="uid://bn2llmbvwkwl0" path="res://scripts/bullet.gd" id="1_p1sfj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p1sfj"]
+radius = 6.0
+height = 74.0
+
+[node name="Bullet" type="Node2D" unique_id=509561587]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1906687664]
+script = ExtResource("1_p1sfj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=255346292]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_p1sfj")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=1010546700]
+texture = ExtResource("1_hf8mt")
