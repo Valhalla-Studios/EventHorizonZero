@@ -23,6 +23,7 @@ var speed := 350.0
 
 func _ready():
 	add_to_group("enemies")
+	add_to_group("battlefield_enemies")
 	speed = initial_speed
 	is_organic = Global.organic != 0
 	target = get_tree().get_first_node_in_group("player") as Node2D

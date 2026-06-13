@@ -15,7 +15,7 @@ position = Vector2(250, 540)
 script = ExtResource("1_p0vlq")
 speed = 850.0
 bullet_scene = ExtResource("2_3li8b")
-fire_rate = 0.2
+fire_rate = 0.4
 debug = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=952553384]

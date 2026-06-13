@@ -25,6 +25,7 @@ var wave_time := 0.0
 
 func _ready():
 	add_to_group("enemies")
+	add_to_group("battlefield_enemies")
 	is_organic = Global.organic != 0
 	start_y = global_position.y
 	shoot_loop()

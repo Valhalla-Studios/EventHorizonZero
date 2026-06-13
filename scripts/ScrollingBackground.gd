@@ -1,5 +1,7 @@
 extends Node2D
 
+const GRAYSCALE_SHADER = preload("res://resources/shaders/death_grayscale.gdshader")
+
 @export var scroll_speed := 100.0
 @export var initial_texture: Texture2D
 
@@ -28,3 +30,15 @@ func set_texture(new_texture: Texture2D):
 
 	background_a.texture = new_texture
 	background_b.texture = new_texture
+	set_grayscale(new_texture == initial_texture)
+
+func set_grayscale(enabled: bool):
+	if not enabled:
+		background_a.material = null
+		background_b.material = null
+		return
+
+	var grayscale_material := ShaderMaterial.new()
+	grayscale_material.shader = GRAYSCALE_SHADER
+	background_a.material = grayscale_material
+	background_b.material = grayscale_material

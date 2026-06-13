@@ -18,7 +18,7 @@ script = ExtResource("1_closh")
 element_n_scene = ExtResource("2_y4jxf")
 bullet_scene = ExtResource("3_bmatd")
 death_texture_organic = ExtResource("7_dead_organic")
-fire_interval = 1.5
+fire_interval = 0.8
 wave_speed = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Gheel" unique_id=2057224945]

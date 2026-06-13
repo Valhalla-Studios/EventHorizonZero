@@ -8,6 +8,7 @@ extends Node2D
 @onready var ancestral_appears: AudioStreamPlayer = $AncestralAppears
 @onready var web_way: AudioStreamPlayer2D = $WebWay
 @onready var background = $Background
+@onready var survive_image: TextureRect = $UILayer/Survive
 
 @export var ancestral_scene: PackedScene
 @export var boss_background: Texture2D
@@ -19,9 +20,25 @@ func _ready():
 	Global.organic_enemy_message_shown = false
 	Global.first_organic_enemy_destroyed.connect(_on_first_organic_enemy_destroyed)
 	battle_music.play()
+	show_survive_message()
 	start_dialogue()
 	start_organic_phase_timer()
 	start_boss_timer()
+
+func show_survive_message():
+	await get_tree().create_timer(0.6).timeout
+	if ending:
+		return
+
+	var fade_in := create_tween()
+	fade_in.tween_property(survive_image, "modulate:a", 1.0, 0.2)
+	await fade_in.finished
+
+	await get_tree().create_timer(1.2).timeout
+
+	var fade_out := create_tween()
+	fade_out.tween_property(survive_image, "modulate:a", 0.0, 0.2)
+	await fade_out.finished
 
 func start_organic_phase_timer():
 	await get_tree().create_timer(60.0).timeout
@@ -48,11 +65,12 @@ func start_boss_timer():
 	background.set_texture(boss_background)
 	clear_battlefield()
 	await flash_white()
+	clear_battlefield()
 	boss_music.play()
 	spawn_ancestral()
 
 func clear_battlefield():
-	for enemy in get_tree().get_nodes_in_group("enemies"):
+	for enemy in get_tree().get_nodes_in_group("battlefield_enemies"):
 		var enemy_root = enemy.get_parent()
 		if enemy_root != null:
 			enemy_root.queue_free()

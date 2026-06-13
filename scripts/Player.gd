@@ -102,6 +102,8 @@ func _on_area_entered(area):
 
 	if area.is_in_group("enemies"):
 		if area.has_method("is_alive") and area.is_alive():
+			if area.is_in_group("battlefield_enemies") and area.has_method("die"):
+				area.die()
 			die()
 
 func die():

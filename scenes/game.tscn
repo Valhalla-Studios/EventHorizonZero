@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://d3k5ip4qf2cb3" path="res://scripts/Game.gd" id="1_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://cv7lx5pls71cg" path="res://resources/images/backgrounds/planet01.png" id="1_planet01"]
 [ext_resource type="Texture2D" uid="uid://cxlhwlkdk6k4n" path="res://resources/images/backgrounds/planet02.png" id="1_planet02"]
+[ext_resource type="Texture2D" uid="uid://bho0by85y78hl" path="res://resources/images/ui/Survive.png" id="1_survive"]
 [ext_resource type="PackedScene" uid="uid://c8lg5vabm8qk" path="res://scenes/Player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://bj2oa7caf63sb" path="res://scripts/EnemySpawner.gd" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://cvuuu5cg6nb4o" path="res://scenes/Gheel.tscn" id="3_lbhrr"]
@@ -41,6 +42,24 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("2_lnu2h")
 gheel_scene = ExtResource("3_lbhrr")
 veyl_scene = ExtResource("4_veyl")
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="Survive" type="TextureRect" parent="UILayer"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -75.0
+offset_right = 500.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_survive")
 
 [node name="DialogueLayer" type="CanvasLayer" parent="." unique_id=1967471419]
 script = ExtResource("6_dialogue")
