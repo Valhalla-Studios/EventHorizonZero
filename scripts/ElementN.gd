@@ -17,4 +17,13 @@ func _on_area_entered(area):
 	if area.is_in_group("player"):
 		Global.element_n += amount
 		player_collect.play()
+
+		if Global.element_n >= 1 and not Global.element_n_collected:
+			Global.element_n_collected = true
+			var dialogue_layer = get_tree().current_scene.get_node_or_null("DialogueLayer")
+			if dialogue_layer != null:
+				dialogue_layer.show_radio_message(
+					DialogueLayer.RadioMessage.COLLECTED
+				)
+
 		queue_free()

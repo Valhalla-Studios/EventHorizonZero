@@ -4,10 +4,18 @@
 [ext_resource type="PackedScene" uid="uid://c8lg5vabm8qk" path="res://scenes/Player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://bj2oa7caf63sb" path="res://scripts/EnemySpawner.gd" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://cvuuu5cg6nb4o" path="res://scenes/Gheel.tscn" id="3_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://dmrt64ih3pqkj" path="res://scenes/Tarsh.tscn" id="4_tarsh"]
+[ext_resource type="PackedScene" uid="uid://dyi41mctbghsp" path="res://scenes/Veyl.tscn" id="4_veyl"]
+[ext_resource type="PackedScene" uid="uid://dkjdyjggej1b6" path="res://scenes/Ancestral.tscn" id="5_ancestral"]
 [ext_resource type="AudioStream" uid="uid://bqmddx4ny0lr7" path="res://resources/audio/BGM/EndlessBattle.mp3" id="5_iywne"]
+[ext_resource type="AudioStream" uid="uid://c2jol7yl6y6oy" path="res://resources/audio/BGM/AtemporalBoss.mp3" id="5_boss"]
+[ext_resource type="AudioStream" uid="uid://bcfavswtj7kl4" path="res://resources/audio/SE/Ancestral.mp3" id="5_ancestral_appears"]
+[ext_resource type="Script" uid="uid://c1ulg5eiewols" path="res://scripts/DialogueLayer.gd" id="6_dialogue"]
+[ext_resource type="AudioStream" uid="uid://weo2tcbmir1w" path="res://resources/audio/SE/Radio.mp3" id="7_radio"]
 
 [node name="Game" type="Node2D" unique_id=130347849]
 script = ExtResource("1_lbhrr")
+ancestral_scene = ExtResource("5_ancestral")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1594811333]
 offset_right = 40.0
@@ -18,14 +26,29 @@ offset_bottom = 40.0
 [node name="EnemySpawner" type="Node2D" parent="." unique_id=1488979447]
 script = ExtResource("2_lnu2h")
 gheel_scene = ExtResource("3_lbhrr")
+tarsh_scene = ExtResource("4_tarsh")
+veyl_scene = ExtResource("4_veyl")
 
-[node name="MessageLayer" type="CanvasLayer" parent="." unique_id=1967471419]
+[node name="DialogueLayer" type="CanvasLayer" parent="." unique_id=1967471419]
+script = ExtResource("6_dialogue")
 
-[node name="TextureRect" type="TextureRect" parent="MessageLayer" unique_id=596732620]
-offset_left = 335.0
-offset_top = 872.0
-offset_right = 450.0
-offset_bottom = 961.0
+[node name="MessageImage" type="TextureRect" parent="DialogueLayer" unique_id=596732620]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -899.0
+offset_top = -220.0
+offset_right = 899.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="RadioSFX" type="AudioStreamPlayer2D" parent="DialogueLayer" unique_id=2047477591]
+stream = ExtResource("7_radio")
+bus = &"SFX"
 
 [node name="FadeLayer" type="CanvasLayer" parent="." unique_id=610415344]
 
@@ -35,8 +58,14 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0, 0, 0, 0)
 
-[node name="Radio" type="AudioStreamPlayer2D" parent="." unique_id=2047477591]
-
 [node name="BattleMusic" type="AudioStreamPlayer" parent="." unique_id=335694]
 stream = ExtResource("5_iywne")
 bus = &"Music"
+
+[node name="BossMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_boss")
+bus = &"Music"
+
+[node name="AncestralAppears" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ancestral_appears")
+bus = &"SFX"
