@@ -1,12 +1,16 @@
 extends Area2D
 
+const DEATH_SHADER = preload("res://resources/shaders/death_grayscale.gdshader")
+
 @export var speed := 350.0
 @export var hp := 1
 @export var element_n_scene: PackedScene
 @export var element_n_drop_chance := 0.25
 @export var bullet_scene: PackedScene
-@export var death_texture_mech: Texture2D
 @export var death_texture_organic: Texture2D
+@export var fire_interval := 2.0
+@export var wave_amplitude := 120.0
+@export var wave_speed := 2.0
 @onready var enemy_bullet_sound: AudioStreamPlayer2D = $"../EnemyBulletSound"
 @onready var enemy_hit_sound_mech: AudioStreamPlayer2D = $"../MechanicDeath"
 @onready var enemy_hit_sound_organic: AudioStreamPlayer2D = $"../OrganicDeath"
@@ -14,29 +18,30 @@ extends Area2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 
-var has_shot := false
 var dead := false
 var is_organic := false
+var start_y := 0.0
+var wave_time := 0.0
 
 func _ready():
 	add_to_group("enemies")
 	is_organic = Global.organic != 0
-
-	await get_tree().create_timer(randf_range(0.3, 0.8)).timeout
-
-	if not dead:
-		shoot()
-		has_shot = true
+	start_y = global_position.y
+	shoot_loop()
 
 func _process(delta):
+	wave_time += delta
 	global_position.x -= speed * delta
-
-	if not has_shot and global_position.x < 1400:
-		shoot()
-		has_shot = true
+	global_position.y = start_y + sin(wave_time * wave_speed) * wave_amplitude
 
 	if global_position.x < -200:
 		queue_free()
+
+func shoot_loop():
+	while not dead:
+		await get_tree().create_timer(fire_interval).timeout
+		if not dead:
+			shoot()
 
 func take_damage(amount := 1):
 	if dead:
@@ -52,19 +57,25 @@ func die():
 	remove_from_group("enemies")
 
 	if not is_organic:
-		sprite.texture = death_texture_mech
 		enemy_hit_sound_mech.play()
 	else:
 		sprite.texture = death_texture_organic
 		enemy_hit_sound_organic.play()
 		Global.report_organic_enemy_destroyed()
 
+	apply_death_effect()
 	collision_shape.set_deferred("disabled", true)
 
 	if randf() <= element_n_drop_chance and element_n_scene != null:
 		var element_n = element_n_scene.instantiate()
 		get_tree().current_scene.add_child(element_n)
 		element_n.global_position = global_position
+
+func apply_death_effect():
+	var grayscale_material := ShaderMaterial.new()
+	grayscale_material.shader = DEATH_SHADER
+	sprite.material = grayscale_material
+	sprite.modulate.a = 0.6
 
 func is_alive():
 	return not dead

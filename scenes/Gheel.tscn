@@ -6,11 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://dot3ek4dmhktn" path="res://scenes/EnemyBullet.tscn" id="3_bmatd"]
 [ext_resource type="AudioStream" uid="uid://clmr7qvcawsds" path="res://resources/audio/SE/GheelLaser.mp3" id="5_7r6wf"]
 [ext_resource type="AudioStream" uid="uid://cb1wvgoj8qshd" path="res://resources/audio/SE/OrganicDeath.mp3" id="5_pqq51"]
-[ext_resource type="Texture2D" path="res://resources/images/sprites/GheelDead.png" id="6_dead_mech"]
-[ext_resource type="Texture2D" path="res://resources/images/sprites/GheelDead2.png" id="7_dead_organic"]
+[ext_resource type="Texture2D" uid="uid://brd5a0kcy8dse" path="res://resources/images/sprites/GheelDead.png" id="7_dead_organic"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_closh"]
-size = Vector2(100, 45)
+size = Vector2(151, 109)
 
 [node name="Gheel" type="Node2D" unique_id=1160501525]
 
@@ -18,13 +17,15 @@ size = Vector2(100, 45)
 script = ExtResource("1_closh")
 element_n_scene = ExtResource("2_y4jxf")
 bullet_scene = ExtResource("3_bmatd")
-death_texture_mech = ExtResource("6_dead_mech")
 death_texture_organic = ExtResource("7_dead_organic")
+fire_interval = 1.5
+wave_speed = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Gheel" unique_id=2057224945]
 texture = ExtResource("1_n55tk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Gheel" unique_id=1971143076]
+position = Vector2(-25.5, 18.5)
 shape = SubResource("RectangleShape2D_closh")
 
 [node name="MechanicDeath" type="AudioStreamPlayer2D" parent="." unique_id=1935522796]

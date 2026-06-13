@@ -1,14 +1,13 @@
 extends Area2D
 
-var half_width := 110
-var half_height := 50
+const DEATH_SHADER = preload("res://resources/shaders/death_grayscale.gdshader")
+
 var dead := false
 
 @export var speed := 650.0
 @export var bullet_scene: PackedScene
 @export var fire_rate := 0.15
 @export var debug := false
-@export var death_texture: Texture2D
 
 @onready var player_bullet_sound: AudioStreamPlayer2D = $LancerBulletSound
 @onready var player_dead_sound: AudioStreamPlayer2D = $MechanicDeath
@@ -50,10 +49,23 @@ func _process(delta):
 
 	direction = direction.normalized()
 
-	position += direction * speed * delta
+	global_position += direction * speed * delta
 
-	position.x = clamp(position.x, half_width, 1920 - half_width)
-	position.y = clamp(position.y, half_height, 1080 - half_height)
+	var sprite_half_width: float = sprite.texture.get_width() * abs(sprite.global_scale.x) / 2.0
+	var collision_half_height: float = (
+		collision_shape.shape.get_rect().size.y * abs(collision_shape.global_scale.y) / 2.0
+	)
+	var viewport_size := get_viewport_rect().size
+	global_position.x = clamp(
+		global_position.x,
+		sprite_half_width,
+		viewport_size.x - sprite_half_width
+	)
+	global_position.y = clamp(
+		global_position.y,
+		collision_half_height,
+		viewport_size.y - collision_half_height
+	)
 
 	if Input.is_action_pressed("ui_accept") and can_shoot:
 		shoot()
@@ -76,7 +88,8 @@ func shoot():
 	var bullet = bullet_scene.instantiate()
 	get_parent().add_child(bullet)
 
-	bullet.global_position = global_position + Vector2(120, 0)
+	var muzzle_offset: float = sprite.texture.get_width() * abs(sprite.global_scale.x) / 2.0
+	bullet.global_position = global_position + Vector2(muzzle_offset, 0)
 	player_bullet_sound.play()
 	await get_tree().create_timer(fire_rate).timeout
 
@@ -97,7 +110,13 @@ func die():
 
 	player_dead_sound.play()
 	dead = true
-	sprite.texture = death_texture
+	apply_mechanical_death_effect()
 	collision_shape.set_deferred("disabled", true)
 
 	get_tree().current_scene.game_over()
+
+func apply_mechanical_death_effect():
+	var grayscale_material := ShaderMaterial.new()
+	grayscale_material.shader = DEATH_SHADER
+	sprite.material = grayscale_material
+	sprite.modulate.a = 0.6

@@ -7,7 +7,11 @@ func _ready():
 	add_child(menu_music)
 	menu_music.stream = preload("res://resources/audio/BGM/Menu.mp3")
 	menu_music.bus = "Music"
-	menu_music.play()
+	play_menu_music()
+
+func play_menu_music():
+	if not menu_music.playing:
+		menu_music.play()
 
 func stop_menu_music():
 	menu_music.stop()

@@ -4,10 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cdrdbfyb8ifep" path="res://scenes/Bullet.tscn" id="2_3li8b"]
 [ext_resource type="Texture2D" uid="uid://etbdi7uaje0t" path="res://resources/images/sprites/Lancer564.png" id="2_v6fml"]
 [ext_resource type="AudioStream" uid="uid://dbd1aqa3jixh" path="res://resources/audio/SE/LancerLaser.mp3" id="3_mdl7e"]
-[ext_resource type="Texture2D" uid="uid://bdmfp3rbfs8m5" path="res://resources/images/sprites/Lancer564Dead.png" id="4_dead"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5q5h1"]
-size = Vector2(170, 70)
+size = Vector2(480, 70)
 
 [node name="Player" type="Node2D" unique_id=1401340265]
 
@@ -16,9 +15,8 @@ position = Vector2(250, 540)
 script = ExtResource("1_p0vlq")
 speed = 850.0
 bullet_scene = ExtResource("2_3li8b")
-fire_rate = 0.4
+fire_rate = 0.2
 debug = true
-death_texture = ExtResource("4_dead")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=952553384]
 texture = ExtResource("2_v6fml")

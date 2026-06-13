@@ -9,6 +9,7 @@ var changing_scene := false
 
 
 func _ready():
+	MusicManager.play_menu_music()
 	button_sfx.bus = "SFX"
 
 	start_button.pressed.connect(_on_start_pressed)

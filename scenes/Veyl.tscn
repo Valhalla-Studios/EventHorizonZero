@@ -4,27 +4,26 @@
 [ext_resource type="PackedScene" uid="uid://v6vodyc5dpxa" path="res://scenes/ElementN.tscn" id="2_4f3pu"]
 [ext_resource type="Texture2D" uid="uid://chs6wkw3a38aq" path="res://resources/images/sprites/Veyl.png" id="4_5v14l"]
 [ext_resource type="AudioStream" uid="uid://cb1wvgoj8qshd" path="res://resources/audio/SE/OrganicDeath.mp3" id="5_bg8r3"]
-[ext_resource type="Texture2D" path="res://resources/images/sprites/VeylDead.png" id="6_dead_mech"]
-[ext_resource type="Texture2D" path="res://resources/images/sprites/VeylDead2.png" id="7_dead_organic"]
+[ext_resource type="Texture2D" uid="uid://267ab5qbvg0s" path="res://resources/images/sprites/VeylDead.png" id="7_dead_organic"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nefnv"]
-size = Vector2(100, 45)
+size = Vector2(168, 65)
 
 [node name="Veyl" type="Node2D" unique_id=1624731381]
 
 [node name="Veyl" type="Area2D" parent="." unique_id=195920994]
 script = ExtResource("1_wnbmd")
-speed = 700.0
+close_range = 700.0
 hp = 1
 element_n_scene = ExtResource("2_4f3pu")
 element_n_drop_chance = 1.0
-death_texture_mech = ExtResource("6_dead_mech")
 death_texture_organic = ExtResource("7_dead_organic")
 
 [node name="Sprite2D" type="Sprite2D" parent="Veyl" unique_id=1399398662]
 texture = ExtResource("4_5v14l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Veyl" unique_id=1995923438]
+position = Vector2(-3, 2.5)
 shape = SubResource("RectangleShape2D_nefnv")
 
 [node name="MechanicDeath" type="AudioStreamPlayer2D" parent="." unique_id=909918822]

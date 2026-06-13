@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://c8lg5vabm8qk" path="res://scenes/Player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://bj2oa7caf63sb" path="res://scripts/EnemySpawner.gd" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://cvuuu5cg6nb4o" path="res://scenes/Gheel.tscn" id="3_lbhrr"]
-[ext_resource type="PackedScene" uid="uid://dmrt64ih3pqkj" path="res://scenes/Tarsh.tscn" id="4_tarsh"]
 [ext_resource type="PackedScene" uid="uid://dyi41mctbghsp" path="res://scenes/Veyl.tscn" id="4_veyl"]
 [ext_resource type="PackedScene" uid="uid://dkjdyjggej1b6" path="res://scenes/Ancestral.tscn" id="5_ancestral"]
 [ext_resource type="AudioStream" uid="uid://bcfavswtj7kl4" path="res://resources/audio/SE/Ancestral.mp3" id="5_ancestral_appears"]
@@ -36,11 +35,11 @@ position = Vector2(2880, 540)
 texture = ExtResource("1_planet01")
 
 [node name="Player" parent="." unique_id=1401340265 instance=ExtResource("1_uwrxv")]
+scale = Vector2(0.7, 0.7)
 
 [node name="EnemySpawner" type="Node2D" parent="." unique_id=1488979447]
 script = ExtResource("2_lnu2h")
 gheel_scene = ExtResource("3_lbhrr")
-tarsh_scene = ExtResource("4_tarsh")
 veyl_scene = ExtResource("4_veyl")
 
 [node name="DialogueLayer" type="CanvasLayer" parent="." unique_id=1967471419]

@@ -114,8 +114,9 @@ func fade_boss_music_for_collapse():
 	fade_out_music(boss_music, 1.5)
 
 func lock_player():
-	$Player.set_process(false)
-	$Player.set_physics_process(false)
+	var player_controller = $Player/Player
+	player_controller.set_process(false)
+	player_controller.set_physics_process(false)
 
 func game_over():
 	if ending:
@@ -127,9 +128,7 @@ func game_over():
 	await fade_to_scene("res://scenes/GameOver.tscn")
 
 func stop_gameplay():
-
-	$Player.set_process(false)
-	$Player.set_physics_process(false)
+	lock_player()
 	$EnemySpawner.set_process(false)
 
 	if $EnemySpawner.has_method("stop_spawning"):

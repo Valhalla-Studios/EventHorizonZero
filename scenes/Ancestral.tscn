@@ -7,14 +7,16 @@
 [ext_resource type="AudioStream" uid="uid://bcfavswtj7kl4" path="res://resources/audio/SE/Ancestral.mp3" id="5_p6k3x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ancestral"]
-size = Vector2(620, 260)
+size = Vector2(620, 430)
 
 [node name="Ancestral" type="Node2D" unique_id=1725193169]
 
 [node name="Ancestral" type="Area2D" parent="." unique_id=947299034]
 script = ExtResource("1_script")
-hp = 15
+hp = 30
 bullet_scene = ExtResource("3_bullet")
+fire_interval = 0.4
+wave_amplitude = 80.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Ancestral" unique_id=538221740]
 texture = ExtResource("2_texture")
