@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dqba1wdfa8i80" path="res://scripts/Player.gd" id="1_p0vlq"]
 [ext_resource type="PackedScene" uid="uid://cdrdbfyb8ifep" path="res://scenes/Bullet.tscn" id="2_3li8b"]
 [ext_resource type="Texture2D" uid="uid://etbdi7uaje0t" path="res://resources/images/sprites/Lancer564.png" id="2_v6fml"]
+[ext_resource type="AudioStream" uid="uid://dbd1aqa3jixh" path="res://resources/audio/SE/LancerLaser.mp3" id="3_mdl7e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5q5h1"]
 size = Vector2(170, 70)
@@ -21,3 +22,10 @@ texture = ExtResource("2_v6fml")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=488044897]
 shape = SubResource("RectangleShape2D_5q5h1")
+
+[node name="LancerBulletSound" type="AudioStreamPlayer2D" parent="Player" unique_id=977920040]
+stream = ExtResource("3_mdl7e")
+bus = &"SFX"
+
+[node name="MechanicDeath" type="AudioStreamPlayer2D" parent="Player" unique_id=891291993]
+bus = &"SFX"

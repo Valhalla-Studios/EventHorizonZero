@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cc38g6lxyk0y7" path="res://resources/images/sprites/ElementN.png" id="1_1gm6k"]
 [ext_resource type="Script" uid="uid://mwk8ran7q26s" path="res://scripts/ElementN.gd" id="1_aomip"]
+[ext_resource type="AudioStream" uid="uid://nllm4e324qx" path="res://resources/audio/SE/Collect.mp3" id="3_ieusm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y48t4"]
 size = Vector2(30, 30)
@@ -16,3 +17,7 @@ texture = ExtResource("1_1gm6k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ElementN" unique_id=1898396579]
 shape = SubResource("RectangleShape2D_y48t4")
+
+[node name="CollectSound" type="AudioStreamPlayer2D" parent="ElementN" unique_id=594006348]
+stream = ExtResource("3_ieusm")
+bus = &"SFX"

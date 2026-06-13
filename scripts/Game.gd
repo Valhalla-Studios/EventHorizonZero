@@ -1,9 +1,12 @@
 extends Node2D
 
-@onready var battle_music: AudioStreamPlayer2D = $BattleMusic
+@onready var battle_music: AudioStreamPlayer = $BattleMusic
 @onready var fade_rect: ColorRect = $FadeLayer/FadeRect
 
 var ending := false
+
+func _ready():
+	battle_music.play()
 
 func game_over():
 	if ending:

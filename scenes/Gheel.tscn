@@ -4,19 +4,33 @@
 [ext_resource type="Texture2D" uid="uid://viums1wtuect" path="res://resources/images/sprites/Gheel.png" id="1_n55tk"]
 [ext_resource type="PackedScene" uid="uid://v6vodyc5dpxa" path="res://scenes/ElementN.tscn" id="2_y4jxf"]
 [ext_resource type="PackedScene" uid="uid://dot3ek4dmhktn" path="res://scenes/EnemyBullet.tscn" id="3_bmatd"]
+[ext_resource type="AudioStream" uid="uid://clmr7qvcawsds" path="res://resources/audio/SE/GheelLaser.mp3" id="5_7r6wf"]
+[ext_resource type="AudioStream" uid="uid://cb1wvgoj8qshd" path="res://resources/audio/SE/OrganicDeath.mp3" id="5_pqq51"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_closh"]
 size = Vector2(100, 45)
 
 [node name="Gheel" type="Node2D" unique_id=1160501525]
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1785918764]
+[node name="Gheel" type="Area2D" parent="." unique_id=1785918764]
 script = ExtResource("1_closh")
 element_n_scene = ExtResource("2_y4jxf")
 bullet_scene = ExtResource("3_bmatd")
 
-[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=2057224945]
+[node name="Sprite2D" type="Sprite2D" parent="Gheel" unique_id=2057224945]
 texture = ExtResource("1_n55tk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1971143076]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gheel" unique_id=1971143076]
 shape = SubResource("RectangleShape2D_closh")
+
+[node name="MechanicDeath" type="AudioStreamPlayer2D" parent="." unique_id=1935522796]
+stream = ExtResource("5_pqq51")
+bus = &"SFX"
+
+[node name="EnemyBulletSound" type="AudioStreamPlayer2D" parent="." unique_id=175785739]
+stream = ExtResource("5_7r6wf")
+bus = &"SFX"
+
+[node name="OrganicDeath" type="AudioStreamPlayer2D" parent="." unique_id=1887297084]
+stream = ExtResource("5_pqq51")
+bus = &"SFX"

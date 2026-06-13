@@ -8,6 +8,8 @@ var dead := false
 
 @export var bullet_scene: PackedScene
 @export var fire_rate := 0.15
+@onready var player_bullet_sound: AudioStreamPlayer2D = $LancerBulletSound
+@onready var player_dead_sound: AudioStreamPlayer2D = $MechanicDeath
 
 var can_shoot := true
 
@@ -41,7 +43,7 @@ func shoot():
 	get_parent().add_child(bullet)
 
 	bullet.global_position = global_position + Vector2(120, 0)
-
+	player_bullet_sound.play()
 	await get_tree().create_timer(fire_rate).timeout
 
 	can_shoot = true
@@ -59,6 +61,7 @@ func die():
 	if dead:
 		return
 
+	player_dead_sound.play()
 	dead = true
 
 	get_tree().current_scene.game_over()

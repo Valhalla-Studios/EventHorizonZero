@@ -19,6 +19,14 @@ offset_bottom = 40.0
 script = ExtResource("2_lnu2h")
 gheel_scene = ExtResource("3_lbhrr")
 
+[node name="MessageLayer" type="CanvasLayer" parent="." unique_id=1967471419]
+
+[node name="TextureRect" type="TextureRect" parent="MessageLayer" unique_id=596732620]
+offset_left = 335.0
+offset_top = 872.0
+offset_right = 450.0
+offset_bottom = 961.0
+
 [node name="FadeLayer" type="CanvasLayer" parent="." unique_id=610415344]
 
 [node name="FadeRect" type="ColorRect" parent="FadeLayer" unique_id=1912035677]
@@ -27,7 +35,8 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0, 0, 0, 0)
 
-[node name="BattleMusic" type="AudioStreamPlayer2D" parent="." unique_id=305700634]
+[node name="Radio" type="AudioStreamPlayer2D" parent="." unique_id=2047477591]
+
+[node name="BattleMusic" type="AudioStreamPlayer" parent="." unique_id=335694]
 stream = ExtResource("5_iywne")
-autoplay = true
 bus = &"Music"
