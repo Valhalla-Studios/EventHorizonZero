@@ -7,12 +7,15 @@ var dead := false
 @export var speed := 650.0
 @export var bullet_scene: PackedScene
 @export var fire_rate := 0.15
-@export var invulnerable := false
+@export var debug := false
+@export var death_texture: Texture2D
 
 @onready var player_bullet_sound: AudioStreamPlayer2D = $LancerBulletSound
 @onready var player_dead_sound: AudioStreamPlayer2D = $MechanicDeath
 @onready var element_n_label: Label = $ElementNLabel
 @onready var time_label: Label = $TimeLabel
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 var can_shoot := true
 var elapsed_time := 0.0
@@ -22,6 +25,8 @@ var displayed_element_n := -1
 func _ready():
 	add_to_group("player")
 	area_entered.connect(_on_area_entered)
+	time_label.visible = debug
+	element_n_label.visible = debug
 	update_element_n_label()
 	update_time_label()
 
@@ -87,10 +92,12 @@ func _on_area_entered(area):
 			die()
 
 func die():
-	if dead or invulnerable:
+	if dead or debug:
 		return
 
 	player_dead_sound.play()
 	dead = true
+	sprite.texture = death_texture
+	collision_shape.set_deferred("disabled", true)
 
 	get_tree().current_scene.game_over()

@@ -5,9 +5,13 @@ extends Area2D
 @export var element_n_scene: PackedScene
 @export var element_n_drop_chance := 0.25
 @export var bullet_scene: PackedScene
+@export var death_texture_mech: Texture2D
+@export var death_texture_organic: Texture2D
 @onready var enemy_bullet_sound: AudioStreamPlayer2D = $"../EnemyBulletSound"
 @onready var enemy_hit_sound_mech: AudioStreamPlayer2D = $"../MechanicDeath"
 @onready var enemy_hit_sound_organic: AudioStreamPlayer2D = $"../OrganicDeath"
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 
 var has_shot := false
@@ -45,11 +49,15 @@ func die():
 	dead = true
 	remove_from_group("enemies")
 
-	modulate = Color(0.4, 0.4, 0.4, 0.6)
 	if Global.organic == 0:
+		sprite.texture = death_texture_mech
 		enemy_hit_sound_mech.play()
 	else:
+		sprite.texture = death_texture_organic
 		enemy_hit_sound_organic.play()
+		Global.report_organic_enemy_destroyed()
+
+	collision_shape.set_deferred("disabled", true)
 
 	if randf() <= element_n_drop_chance and element_n_scene != null:
 		var element_n = element_n_scene.instantiate()

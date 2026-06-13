@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dkui58fnaxk8j" path="res://resources/images/sprites/Tarsh.png" id="4_yhg2k"]
 [ext_resource type="AudioStream" uid="uid://cb1wvgoj8qshd" path="res://resources/audio/SE/OrganicDeath.mp3" id="5_rfi3r"]
 [ext_resource type="AudioStream" uid="uid://yamvkkh42578" path="res://resources/audio/SE/TarshLaser.mp3" id="6_770v8"]
+[ext_resource type="Texture2D" path="res://resources/images/sprites/TarshDead.png" id="7_dead_mech"]
+[ext_resource type="Texture2D" path="res://resources/images/sprites/TarshDead2.png" id="8_dead_organic"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nefnv"]
 size = Vector2(100, 45)
@@ -16,6 +18,8 @@ size = Vector2(100, 45)
 script = ExtResource("1_3b1g3")
 element_n_scene = ExtResource("2_1ye1p")
 bullet_scene = ExtResource("3_ainuj")
+death_texture_mech = ExtResource("7_dead_mech")
+death_texture_organic = ExtResource("8_dead_organic")
 
 [node name="Sprite2D" type="Sprite2D" parent="Tarsh" unique_id=1399398662]
 texture = ExtResource("4_yhg2k")

@@ -30,18 +30,18 @@ func shoot_loop():
 			shoot_volley()
 
 func shoot_volley():
-	var shot_offsets := [-120.0, -60.0, 0.0, 60.0, 120.0]
 	bullet_sound.play()
 
-	for index in shot_offsets.size():
+	for shot in 2:
+		var shot_offset := randf_range(-125.0, 125.0)
 		var bullet = bullet_scene.instantiate()
 		var bullet_area := bullet.get_child(0) as Area2D
 		if bullet_area != null:
-			var vertical_spread := (index - 2) * 0.12
+			var vertical_spread := randf_range(-0.18, 0.18)
 			bullet_area.set("direction", Vector2(-1.0, vertical_spread))
 
 		get_tree().current_scene.add_child(bullet)
-		bullet.global_position = global_position + Vector2(-330, shot_offsets[index])
+		bullet.global_position = global_position + Vector2(-330, shot_offset)
 
 func take_damage(amount := 1):
 	if dead:

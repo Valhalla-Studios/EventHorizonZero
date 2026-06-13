@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cdrdbfyb8ifep" path="res://scenes/Bullet.tscn" id="2_3li8b"]
 [ext_resource type="Texture2D" uid="uid://etbdi7uaje0t" path="res://resources/images/sprites/Lancer564.png" id="2_v6fml"]
 [ext_resource type="AudioStream" uid="uid://dbd1aqa3jixh" path="res://resources/audio/SE/LancerLaser.mp3" id="3_mdl7e"]
+[ext_resource type="Texture2D" uid="uid://bdmfp3rbfs8m5" path="res://resources/images/sprites/Lancer564Dead.png" id="4_dead"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5q5h1"]
 size = Vector2(170, 70)
@@ -16,6 +17,8 @@ script = ExtResource("1_p0vlq")
 speed = 850.0
 bullet_scene = ExtResource("2_3li8b")
 fire_rate = 0.4
+debug = true
+death_texture = ExtResource("4_dead")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=952553384]
 texture = ExtResource("2_v6fml")
@@ -23,7 +26,7 @@ texture = ExtResource("2_v6fml")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=488044897]
 shape = SubResource("RectangleShape2D_5q5h1")
 
-[node name="TimeLabel" type="Label" parent="Player"]
+[node name="TimeLabel" type="Label" parent="Player" unique_id=1300784092]
 offset_left = -55.0
 offset_top = -82.0
 offset_right = 55.0
@@ -36,7 +39,7 @@ theme_override_font_sizes/font_size = 24
 text = "00:00"
 horizontal_alignment = 1
 
-[node name="ElementNLabel" type="Label" parent="Player"]
+[node name="ElementNLabel" type="Label" parent="Player" unique_id=1739714352]
 offset_left = -85.0
 offset_top = 55.0
 offset_right = 85.0

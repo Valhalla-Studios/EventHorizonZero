@@ -6,15 +6,25 @@ extends Node2D
 @onready var enemy_spawner = $EnemySpawner
 @onready var boss_music: AudioStreamPlayer = $BossMusic
 @onready var ancestral_appears: AudioStreamPlayer = $AncestralAppears
+@onready var background = $Background
 
 @export var ancestral_scene: PackedScene
+@export var boss_background: Texture2D
 
 var ending := false
 
 func _ready():
+	Global.organic_enemy_message_shown = false
+	Global.first_organic_enemy_destroyed.connect(_on_first_organic_enemy_destroyed)
 	battle_music.play()
 	start_dialogue()
 	start_boss_timer()
+
+func _on_first_organic_enemy_destroyed():
+	if ending:
+		return
+
+	await dialogue_layer.show_radio_message(DialogueLayer.RadioMessage.MESSAGE_03)
 
 func start_boss_timer():
 	await get_tree().create_timer(90.0).timeout
@@ -25,6 +35,7 @@ func start_boss_timer():
 	await fade_out_music(battle_music, 1.5)
 	ancestral_appears.play()
 	await ancestral_appears.finished
+	background.set_texture(boss_background)
 	await flash_white()
 	boss_music.play()
 	spawn_ancestral()
@@ -47,8 +58,8 @@ func spawn_ancestral():
 		return
 
 	var ancestral = ancestral_scene.instantiate()
+	ancestral.position = Vector2(1500, 540)
 	add_child(ancestral)
-	ancestral.global_position = Vector2(1700, 540)
 
 func game_over():
 	if ending:
@@ -93,22 +104,12 @@ func fade_out_music(music_player: AudioStreamPlayer, duration := 1.5):
 	music_player.stop()
 
 func start_dialogue():
-	await get_tree().create_timer(10.0).timeout
-	if ending:
-		return
-	await dialogue_layer.show_radio_message(DialogueLayer.RadioMessage.MESSAGE_01)
+	show_timed_message(10.0, DialogueLayer.RadioMessage.MESSAGE_01)
+	show_timed_message(30.0, DialogueLayer.RadioMessage.MESSAGE_02)
+	show_timed_message(91.0, DialogueLayer.RadioMessage.MESSAGE_04)
 
-	await get_tree().create_timer(30.0).timeout
+func show_timed_message(delay: float, message: DialogueLayer.RadioMessage):
+	await get_tree().create_timer(delay).timeout
 	if ending:
 		return
-	await dialogue_layer.show_radio_message(DialogueLayer.RadioMessage.MESSAGE_02)
-
-	await get_tree().create_timer(60.0).timeout
-	if ending:
-		return
-	await dialogue_layer.show_radio_message(DialogueLayer.RadioMessage.MESSAGE_03)
-
-	await get_tree().create_timer(100.0).timeout
-	if ending:
-		return
-	await dialogue_layer.show_radio_message(DialogueLayer.RadioMessage.MESSAGE_04)
+	await dialogue_layer.show_radio_message(message)
