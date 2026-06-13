@@ -110,6 +110,13 @@ func ancestral_defeated():
 		await dialogue_layer.show_radio_message(DialogueLayer.RadioMessage.BAD_ENDING)
 		await fade_to_scene("res://scenes/GameOver.tscn", 2.5)
 
+func fade_boss_music_for_collapse():
+	fade_out_music(boss_music, 1.5)
+
+func lock_player():
+	$Player.set_process(false)
+	$Player.set_physics_process(false)
+
 func game_over():
 	if ending:
 		return
@@ -134,8 +141,9 @@ func fade_to_scene(scene_path: String, white_hold_duration := 0.0):
 
 	var tween := create_tween()
 	tween.tween_property(fade_rect, "color", Color(255, 255, 255, 1), 1.5)
-	var current_music := boss_music if boss_music.playing else battle_music
-	fade_out_music(current_music)
+	if boss_music.playing or battle_music.playing:
+		var current_music := boss_music if boss_music.playing else battle_music
+		fade_out_music(current_music)
 	await tween.finished
 	if white_hold_duration > 0.0:
 		await get_tree().create_timer(white_hold_duration).timeout

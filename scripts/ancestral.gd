@@ -60,13 +60,18 @@ func die():
 	bullet_sound.stop()
 	death_sound.play()
 
+	var game = get_tree().current_scene
+	if game.has_method("lock_player"):
+		game.lock_player()
+	if game.has_method("fade_boss_music_for_collapse"):
+		game.fade_boss_music_for_collapse()
+
 	var collapse := create_tween()
 	collapse.set_trans(Tween.TRANS_QUAD)
 	collapse.set_ease(Tween.EASE_IN)
 	collapse.tween_property(self, "scale", Vector2.ZERO, 1.5)
 	await collapse.finished
 
-	var game = get_tree().current_scene
 	if game.has_method("ancestral_defeated"):
 		game.ancestral_defeated()
 
