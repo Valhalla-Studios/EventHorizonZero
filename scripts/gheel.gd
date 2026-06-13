@@ -16,9 +16,11 @@ extends Area2D
 
 var has_shot := false
 var dead := false
+var is_organic := false
 
 func _ready():
 	add_to_group("enemies")
+	is_organic = Global.organic != 0
 
 	await get_tree().create_timer(randf_range(0.3, 0.8)).timeout
 
@@ -49,7 +51,7 @@ func die():
 	dead = true
 	remove_from_group("enemies")
 
-	if Global.organic == 0:
+	if not is_organic:
 		sprite.texture = death_texture_mech
 		enemy_hit_sound_mech.play()
 	else:

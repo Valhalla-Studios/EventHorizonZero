@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dj78jy5u5plge"]
+
+[ext_resource type="Script" uid="uid://dmw00rtgbwitg" path="res://scripts/ending.gd" id="1_mqjok"]
+
+[node name="Ending" type="Node2D" unique_id=584229465]
+
+[node name="Ending" type="Control" parent="." unique_id=767849641]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_mqjok")
+
+[node name="TextureRect" type="TextureRect" parent="Ending" unique_id=860967998]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FadeRect" type="ColorRect" parent="Ending" unique_id=382386569]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1808.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

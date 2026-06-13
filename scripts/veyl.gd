@@ -13,9 +13,11 @@ extends Area2D
 
 var dead := false
 var target: Node2D
+var is_organic := false
 
 func _ready():
 	add_to_group("enemies")
+	is_organic = Global.organic != 0
 	target = get_tree().get_first_node_in_group("player") as Node2D
 
 func _process(delta):
@@ -48,7 +50,7 @@ func die():
 	dead = true
 	remove_from_group("enemies")
 
-	if Global.organic == 0:
+	if not is_organic:
 		sprite.texture = death_texture_mech
 		enemy_hit_sound_mech.play()
 	else:

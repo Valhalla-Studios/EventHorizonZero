@@ -6,6 +6,7 @@ extends Node2D
 @onready var enemy_spawner = $EnemySpawner
 @onready var boss_music: AudioStreamPlayer = $BossMusic
 @onready var ancestral_appears: AudioStreamPlayer = $AncestralAppears
+@onready var web_way: AudioStreamPlayer2D = $WebWay
 @onready var background = $Background
 
 @export var ancestral_scene: PackedScene
@@ -14,11 +15,20 @@ extends Node2D
 var ending := false
 
 func _ready():
+	Global.organic = 0
 	Global.organic_enemy_message_shown = false
 	Global.first_organic_enemy_destroyed.connect(_on_first_organic_enemy_destroyed)
 	battle_music.play()
 	start_dialogue()
+	start_organic_phase_timer()
 	start_boss_timer()
+
+func start_organic_phase_timer():
+	await get_tree().create_timer(60.0).timeout
+	if ending:
+		return
+
+	Global.organic = 1
 
 func _on_first_organic_enemy_destroyed():
 	if ending:
@@ -36,9 +46,32 @@ func start_boss_timer():
 	ancestral_appears.play()
 	await ancestral_appears.finished
 	background.set_texture(boss_background)
+	clear_battlefield()
 	await flash_white()
 	boss_music.play()
 	spawn_ancestral()
+
+func clear_battlefield():
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		var enemy_root = enemy.get_parent()
+		if enemy_root != null:
+			enemy_root.queue_free()
+		else:
+			enemy.queue_free()
+
+	for bullet in get_tree().get_nodes_in_group("enemy_bullets"):
+		var bullet_root = bullet.get_parent()
+		if bullet_root != null:
+			bullet_root.queue_free()
+		else:
+			bullet.queue_free()
+
+	for element_n in get_tree().get_nodes_in_group("element_n_pickups"):
+		var element_root = element_n.get_parent()
+		if element_root != null:
+			element_root.queue_free()
+		else:
+			element_n.queue_free()
 
 func flash_white():
 	fade_rect.visible = true
@@ -61,11 +94,32 @@ func spawn_ancestral():
 	ancestral.position = Vector2(1500, 540)
 	add_child(ancestral)
 
+func ancestral_defeated():
+	if ending:
+		return
+
+	ending = true
+	stop_gameplay()
+
+	if Global.element_n >= Global.required_element_n:
+		await dialogue_layer.show_radio_message(DialogueLayer.RadioMessage.GOOD_ENDING)
+		web_way.play()
+		await web_way.finished
+		await fade_to_scene("res://scenes/ending.tscn", 2.5)
+	else:
+		await dialogue_layer.show_radio_message(DialogueLayer.RadioMessage.BAD_ENDING)
+		await fade_to_scene("res://scenes/GameOver.tscn", 2.5)
+
 func game_over():
 	if ending:
 		return
 
 	ending = true
+	stop_gameplay()
+	await get_tree().create_timer(1.5).timeout
+	await fade_to_scene("res://scenes/GameOver.tscn")
+
+func stop_gameplay():
 
 	$Player.set_process(false)
 	$Player.set_physics_process(false)
@@ -74,8 +128,7 @@ func game_over():
 	if $EnemySpawner.has_method("stop_spawning"):
 		$EnemySpawner.stop_spawning()
 
-	await get_tree().create_timer(1.5).timeout
-
+func fade_to_scene(scene_path: String, white_hold_duration := 0.0):
 	fade_rect.visible = true
 	fade_rect.color = Color(0, 0, 0, 0)
 
@@ -84,8 +137,10 @@ func game_over():
 	var current_music := boss_music if boss_music.playing else battle_music
 	fade_out_music(current_music)
 	await tween.finished
+	if white_hold_duration > 0.0:
+		await get_tree().create_timer(white_hold_duration).timeout
 
-	get_tree().change_scene_to_file("res://scenes/GameOver.tscn")
+	get_tree().change_scene_to_file(scene_path)
 
 
 func fade_out_music(music_player: AudioStreamPlayer, duration := 1.5):

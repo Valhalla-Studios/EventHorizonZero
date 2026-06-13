@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://uybdjwd82exa"]
 
+[ext_resource type="Script" uid="uid://j4ghvjbw1elw" path="res://scripts/ScrollingBackground.gd" id="1_background_script"]
 [ext_resource type="Script" uid="uid://d3k5ip4qf2cb3" path="res://scripts/Game.gd" id="1_lbhrr"]
-[ext_resource type="Script" path="res://scripts/ScrollingBackground.gd" id="1_background_script"]
 [ext_resource type="Texture2D" uid="uid://cv7lx5pls71cg" path="res://resources/images/backgrounds/planet01.png" id="1_planet01"]
 [ext_resource type="Texture2D" uid="uid://cxlhwlkdk6k4n" path="res://resources/images/backgrounds/planet02.png" id="1_planet02"]
 [ext_resource type="PackedScene" uid="uid://c8lg5vabm8qk" path="res://scenes/Player.tscn" id="1_uwrxv"]
@@ -10,11 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://dmrt64ih3pqkj" path="res://scenes/Tarsh.tscn" id="4_tarsh"]
 [ext_resource type="PackedScene" uid="uid://dyi41mctbghsp" path="res://scenes/Veyl.tscn" id="4_veyl"]
 [ext_resource type="PackedScene" uid="uid://dkjdyjggej1b6" path="res://scenes/Ancestral.tscn" id="5_ancestral"]
-[ext_resource type="AudioStream" uid="uid://bqmddx4ny0lr7" path="res://resources/audio/BGM/EndlessBattle.mp3" id="5_iywne"]
-[ext_resource type="AudioStream" uid="uid://c2jol7yl6y6oy" path="res://resources/audio/BGM/AtemporalBoss.mp3" id="5_boss"]
 [ext_resource type="AudioStream" uid="uid://bcfavswtj7kl4" path="res://resources/audio/SE/Ancestral.mp3" id="5_ancestral_appears"]
+[ext_resource type="AudioStream" uid="uid://c2jol7yl6y6oy" path="res://resources/audio/BGM/AtemporalBoss.mp3" id="5_boss"]
+[ext_resource type="AudioStream" uid="uid://bqmddx4ny0lr7" path="res://resources/audio/BGM/EndlessBattle.mp3" id="5_iywne"]
 [ext_resource type="Script" uid="uid://c1ulg5eiewols" path="res://scripts/DialogueLayer.gd" id="6_dialogue"]
 [ext_resource type="AudioStream" uid="uid://weo2tcbmir1w" path="res://resources/audio/SE/Radio.mp3" id="7_radio"]
+[ext_resource type="AudioStream" uid="uid://f7hy34x3ylqa" path="res://resources/audio/SE/Webway.mp3" id="16_ca42v"]
 
 [node name="Game" type="Node2D" unique_id=130347849]
 script = ExtResource("1_lbhrr")
@@ -26,11 +27,11 @@ z_index = -10
 script = ExtResource("1_background_script")
 initial_texture = ExtResource("1_planet01")
 
-[node name="BackgroundA" type="Sprite2D" parent="Background"]
+[node name="BackgroundA" type="Sprite2D" parent="Background" unique_id=1631471179]
 position = Vector2(960, 540)
 texture = ExtResource("1_planet01")
 
-[node name="BackgroundB" type="Sprite2D" parent="Background"]
+[node name="BackgroundB" type="Sprite2D" parent="Background" unique_id=2055685328]
 position = Vector2(2880, 540)
 texture = ExtResource("1_planet01")
 
@@ -75,10 +76,14 @@ color = Color(0, 0, 0, 0)
 stream = ExtResource("5_iywne")
 bus = &"Music"
 
-[node name="BossMusic" type="AudioStreamPlayer" parent="."]
+[node name="BossMusic" type="AudioStreamPlayer" parent="." unique_id=1867501180]
 stream = ExtResource("5_boss")
 bus = &"Music"
 
-[node name="AncestralAppears" type="AudioStreamPlayer" parent="."]
+[node name="AncestralAppears" type="AudioStreamPlayer" parent="." unique_id=605195094]
 stream = ExtResource("5_ancestral_appears")
+bus = &"SFX"
+
+[node name="WebWay" type="AudioStreamPlayer2D" parent="." unique_id=669491219]
+stream = ExtResource("16_ca42v")
 bus = &"SFX"

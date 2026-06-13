@@ -5,6 +5,7 @@ extends Area2D
 @onready var player_collect: AudioStreamPlayer2D = $CollectSound
 
 func _ready():
+	add_to_group("element_n_pickups")
 	area_entered.connect(_on_area_entered)
 
 func _process(delta):

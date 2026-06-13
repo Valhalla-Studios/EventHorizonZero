@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cbnb3syfobbli" path="res://resources/images/sprites/Atemporal.png" id="2_texture"]
 [ext_resource type="PackedScene" uid="uid://dot3ek4dmhktn" path="res://scenes/EnemyBullet.tscn" id="3_bullet"]
 [ext_resource type="AudioStream" uid="uid://bf2rp51w05lac" path="res://resources/audio/SE/AncestralLaser.mp3" id="4_laser"]
+[ext_resource type="AudioStream" uid="uid://bcfavswtj7kl4" path="res://resources/audio/SE/Ancestral.mp3" id="5_p6k3x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ancestral"]
 size = Vector2(620, 260)
@@ -21,6 +22,11 @@ texture = ExtResource("2_texture")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ancestral" unique_id=1550020930]
 shape = SubResource("RectangleShape2D_ancestral")
 
-[node name="BulletSound" type="AudioStreamPlayer2D" parent="." unique_id=396737287]
+[node name="BulletSound" type="AudioStreamPlayer2D" parent="Ancestral" unique_id=1720861336]
 stream = ExtResource("4_laser")
+bus = &"SFX"
+
+[node name="AncestralDeath" type="AudioStreamPlayer2D" parent="Ancestral" unique_id=396737287]
+stream = ExtResource("5_p6k3x")
+pitch_scale = 1.37
 bus = &"SFX"

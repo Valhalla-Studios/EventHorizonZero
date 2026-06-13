@@ -19,9 +19,11 @@ extends Area2D
 var dead := false
 var start_y := 0.0
 var wave_time := 0.0
+var is_organic := false
 
 func _ready():
 	add_to_group("enemies")
+	is_organic = Global.organic != 0
 	start_y = global_position.y
 	shoot_loop()
 
@@ -52,7 +54,7 @@ func die():
 	dead = true
 	remove_from_group("enemies")
 
-	if Global.organic == 0:
+	if not is_organic:
 		sprite.texture = death_texture_mech
 		enemy_hit_sound_mech.play()
 	else:

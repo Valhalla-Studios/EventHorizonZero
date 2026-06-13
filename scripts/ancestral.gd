@@ -5,7 +5,9 @@ extends Area2D
 @export var fire_interval := 0.45
 @export var wave_amplitude := 45.0
 @export var wave_speed := 1.2
-@onready var bullet_sound: AudioStreamPlayer2D = $"../BulletSound"
+@onready var bullet_sound: AudioStreamPlayer2D = $BulletSound
+@onready var death_sound: AudioStreamPlayer2D = $AncestralDeath
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 var dead := false
 var start_y := 0.0
@@ -54,6 +56,20 @@ func take_damage(amount := 1):
 func die():
 	dead = true
 	remove_from_group("enemies")
+	collision_shape.set_deferred("disabled", true)
+	bullet_sound.stop()
+	death_sound.play()
+
+	var collapse := create_tween()
+	collapse.set_trans(Tween.TRANS_QUAD)
+	collapse.set_ease(Tween.EASE_IN)
+	collapse.tween_property(self, "scale", Vector2.ZERO, 1.5)
+	await collapse.finished
+
+	var game = get_tree().current_scene
+	if game.has_method("ancestral_defeated"):
+		game.ancestral_defeated()
+
 	queue_free()
 
 func is_alive():
