@@ -43,9 +43,9 @@ script = ExtResource("2_lnu2h")
 gheel_scene = ExtResource("3_lbhrr")
 veyl_scene = ExtResource("4_veyl")
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1900173881]
 
-[node name="Survive" type="TextureRect" parent="UILayer"]
+[node name="Survive" type="TextureRect" parent="UILayer" unique_id=400503472]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
